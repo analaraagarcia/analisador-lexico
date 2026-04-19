@@ -6,6 +6,7 @@ Compilador: VSCode
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cctype>
 #include <vector>
 
 using namespace std;
@@ -113,7 +114,8 @@ Token CODIGO(string atomo, vector<Simbolo>& tabela, int& contador_id) {
     }
 
     // identificadores (id)
-    for (int i = 0; i < tabela.size(); i++) { // variavel já existe na tabela
+    int tabela_len = tabela.size();
+    for (int i = 0; i < tabela_len; i++) { // variavel já existe na tabela
         if (tabela[i].nome == atomo) {
             t.tipo = TOK_ID;
             t.valor = tabela[i].valor;
@@ -136,15 +138,111 @@ Token CODIGO(string atomo, vector<Simbolo>& tabela, int& contador_id) {
 }
 
 void ERRO(int linha, string mensagem) {
-    cout << "Erro na linha " << linha << ": " << mensagem << "\n";
+    cout << "\tErro na linha " << linha << ": " << mensagem << "\n";
 }
 
-void analisador_lexico(ifstream& arq, char c, int& linha) {
+string obter_nome_tipo(int tipo) {
+    switch (tipo) {
+        case TOK_PCHAVE: 
+            return "p_chave";
+        case TOK_ID:     
+            return "id";
+        case TOK_NUM:    
+            return "num";
+        case TOK_PONT:   
+            return "pont";
+        case TOK_OP:     
+            return "op";
+        default:         
+            return "desconhecido";
+    }
+}
+
+void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabela, int& contador_id, bool& nova_linha) {
     string atomo = "";
     
-    // while ()
+    // ignora espaço em branco, tab, quebra de linha
+    while (c == ' ' || c == '\t' || c == '\n' || c == '\r') {
+        if (c == '\n') {
+            cout << "\n";
+            nova_linha = true;
+        } else if (c != '\r') {
+            if (nova_linha) {
+                if (linha < 10) {
+                    cout << " ";
+                }
+                cout << linha << "\t";
+                nova_linha = false;
+            }
+            cout << c;
+        }
+        PROXIMO(arq, c, linha);
+    }
 
     if (c == EOF) return;
+
+    // começou com letra
+    if (isalpha(c)) {
+        while (isalpha(c) || isdigit(c)) {
+            atomo += c; // juntando letras e números
+            PROXIMO(arq, c, linha);
+        }
+    // começou com número
+    } else if (isdigit(c)) {
+        while (isdigit(c)) {
+            atomo += c;
+            PROXIMO(arq, c, linha);
+        }
+
+        // se tiver letra depois de número
+        if (isalpha(c)) {
+            ERRO(linha, "Identificador ou número mal formado.");
+            while (isalpha(c) || isdigit(c)) {
+                PROXIMO(arq, c, linha);
+            }
+            atomo = "";
+        }
+    // símbolos compostos
+    // atribuição e dois pontos
+    } else if (c == ':') {
+        atomo += c;
+        PROXIMO(arq, c, linha);
+        if (c == '=') {
+            atomo += c;
+            PROXIMO(arq, c, linha);
+        }
+    // menor, menor igual e diferente
+    } else if (c == '<') {
+        atomo += c;
+        PROXIMO(arq, c, linha);
+        if (c == '=' || c == '>') {
+            atomo += c;
+            PROXIMO(arq, c, linha);
+        }
+    // símbolos simples
+    } else if (c == ';' || c == ',' || c == '.' || c == '+' || c == '-' || c == '*' || c == '=' || c == '(' || c == ')') {
+        atomo += c;
+        PROXIMO(arq, c, linha);
+    // caractere inválido
+    } else {
+        ERRO(linha, "Símbolo especial desconhecido '" + string(1, c) + "'");
+        PROXIMO(arq, c, linha);
+        return;
+    }
+
+    if (atomo != "") {
+        Token token = CODIGO(atomo, tabela, contador_id); // manda pro dicionário
+        string nome_tipo = obter_nome_tipo(token.tipo);
+
+        if (nova_linha) {
+            if (linha < 10) {
+                cout << " ";
+            }
+            cout << linha << "\t";
+            nova_linha = false;
+        }
+        cout << "<" << atomo << ", " << nome_tipo << ", " << token.valor << ">";
+    }
 }
 
 int main() {
@@ -159,10 +257,13 @@ int main() {
 
     char c = ' ';
     int linha = 1;
+    vector<Simbolo> tabela_simb;
+    int contador_id = -1;
+    bool nova_linha = true;
     PROXIMO(arq, c, linha);
     
     while (c != EOF) {
-        analisador_lexico(arq, c, linha);
+        analisador_lexico(arq, c, linha, tabela_simb, contador_id, nova_linha);
     }
 
     arq.close();

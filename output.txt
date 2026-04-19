@@ -1,0 +1,131 @@
+LINHA 1:
+        Lexema: PROGRAM ----- Tipo: palavra chave ----- Valor: 0
+        Lexema: EXEMPLO1 ----- Tipo: identificador ----- Valor: -1
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 2:
+        Lexema: VAR ----- Tipo: palavra chave ----- Valor: 1
+
+LINHA 3:
+        Lexema: N ----- Tipo: identificador ----- Valor: -2
+        Lexema: , ----- Tipo: pontuação ----- Valor: 3
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: , ----- Tipo: pontuação ----- Valor: 3
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: : ----- Tipo: pontuação ----- Valor: 5
+        Lexema: INTEGER ----- Tipo: palavra chave ----- Valor: 10
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 4:
+        Lexema: PROCEDURE ----- Tipo: palavra chave ----- Valor: 2
+        Lexema: SOMA ----- Tipo: identificador ----- Valor: -5
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 5:
+        Lexema: VAR ----- Tipo: palavra chave ----- Valor: 1
+        Lexema: Q ----- Tipo: identificador ----- Valor: -6
+        Lexema: : ----- Tipo: pontuação ----- Valor: 5
+        Lexema: INTEGER ----- Tipo: palavra chave ----- Valor: 10
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 6:
+        Lexema: BEGIN ----- Tipo: palavra chave ----- Valor: 3
+
+LINHA 7:
+        Lexema: Q ----- Tipo: identificador ----- Valor: -6
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: * ----- Tipo: operador ----- Valor: 3
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 8:
+        Lexema: IF ----- Tipo: palavra chave ----- Valor: 5
+        Lexema: ( ----- Tipo: pontuação ----- Valor: 1
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: DIV ----- Tipo: palavra chave ----- Valor: 11
+        Lexema: 2 ----- Tipo: número ----- Valor: 2
+        Lexema: ) ----- Tipo: pontuação ----- Valor: 2
+        Lexema: * ----- Tipo: operador ----- Valor: 3
+        Lexema: 2 ----- Tipo: número ----- Valor: 2
+        Lexema: = ----- Tipo: operador ----- Valor: 4
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: THEN ----- Tipo: palavra chave ----- Valor: 6
+
+LINHA 9:
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: + ----- Tipo: operador ----- Valor: 1
+        Lexema: Q ----- Tipo: identificador ----- Valor: -6
+
+LINHA 10:
+        Lexema: ELSE ----- Tipo: palavra chave ----- Valor: 7
+
+LINHA 11:
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: - ----- Tipo: operador ----- Valor: 2
+        Lexema: Q ----- Tipo: identificador ----- Valor: -6
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 12:
+        Lexema: END ----- Tipo: palavra chave ----- Valor: 4
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 13:
+        Lexema: BEGIN ----- Tipo: palavra chave ----- Valor: 3
+
+LINHA 14:
+        Lexema: READ ----- Tipo: palavra chave ----- Valor: 12
+        Lexema: ( ----- Tipo: pontuação ----- Valor: 1
+        Lexema: N ----- Tipo: identificador ----- Valor: -2
+        Lexema: ) ----- Tipo: pontuação ----- Valor: 2
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 15:
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: 0 ----- Tipo: número ----- Valor: 0
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: 0 ----- Tipo: número ----- Valor: 0
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 16:
+        Lexema: WHILE ----- Tipo: palavra chave ----- Valor: 8
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: <= ----- Tipo: operador ----- Valor: 5
+        Lexema: N ----- Tipo: identificador ----- Valor: -2
+        Lexema: DO ----- Tipo: palavra chave ----- Valor: 9
+
+LINHA 17:
+        Lexema: BEGIN ----- Tipo: palavra chave ----- Valor: 3
+
+LINHA 18:
+        Lexema: SOMA ----- Tipo: identificador ----- Valor: -5
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 19:
+        Lexema: WRITE ----- Tipo: palavra chave ----- Valor: 13
+        Lexema: ( ----- Tipo: pontuação ----- Valor: 1
+        Lexema: S ----- Tipo: identificador ----- Valor: -3
+        Lexema: ) ----- Tipo: pontuação ----- Valor: 2
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 20:
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: := ----- Tipo: operador ----- Valor: 6
+        Lexema: I ----- Tipo: identificador ----- Valor: -4
+        Lexema: + ----- Tipo: operador ----- Valor: 1
+        Lexema: 1 ----- Tipo: número ----- Valor: 1
+        Lexema: ; ----- Tipo: pontuação ----- Valor: 4
+
+LINHA 21:
+        Lexema: END ----- Tipo: palavra chave ----- Valor: 4
+
+LINHA 22:
+        Lexema: END ----- Tipo: palavra chave ----- Valor: 4
+        Lexema: . ----- Tipo: pontuação ----- Valor: 6

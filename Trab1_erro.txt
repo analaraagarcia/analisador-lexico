@@ -1,0 +1,7 @@
+program teste_erro;
+var 
+    123variavel, normal: integer;
+begin
+    normal := 10;
+    @normal := 20;
+end.
