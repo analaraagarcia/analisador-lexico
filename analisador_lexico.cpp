@@ -243,12 +243,13 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
             cout << linha << "\t";
             nova_linha = false;
         }
-        cout << "<" << atomo << ", " << nome_tipo << ", " << token.valor << ">";
+        // cout << "<" << atomo << ", " << nome_tipo << ", " << token.valor << ">";
+        cout << "<" << nome_tipo << ", " << token.valor << ">";
     }
 }
 
 int main() {
-    string nomeArq = "Trab1_erro.txt";
+    string nomeArq = "Trab1_Compiladores.txt";
 
     ifstream arq(nomeArq);
 
