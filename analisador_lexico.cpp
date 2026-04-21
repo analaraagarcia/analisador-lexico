@@ -137,28 +137,30 @@ Token CODIGO(string atomo, vector<Simbolo>& tabela, int& contador_id) {
 
 }
 
-void ERRO(int linha, string mensagem) {
-    cout << "\tErro na linha " << linha << ": " << mensagem << "\n";
+void ERRO(int linha, string mensagem, vector<string>& lista_erros) {
+    // faz uma lista de erros pra mostrar no final
+    string erro = "Erro na linha " + to_string(linha) + ": " + mensagem;
+    lista_erros.push_back(erro);
 }
 
 string obter_nome_tipo(int tipo) {
     switch (tipo) {
         case TOK_PCHAVE: 
-            return "p_chave";
+            return "p_chave"; // palavra chave
         case TOK_ID:     
-            return "id";
+            return "id"; // ID
         case TOK_NUM:    
-            return "num";
+            return "num"; // número
         case TOK_PONT:   
-            return "pont";
+            return "pont"; // pontuação
         case TOK_OP:     
-            return "op";
+            return "op"; // operador
         default:         
             return "desconhecido";
     }
 }
 
-void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabela, int& contador_id, bool& nova_linha) {
+void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabela, int& contador_id, bool& nova_linha, vector<string>& lista_erros) {
     string atomo = "";
     
     // ignora espaço em branco, tab, quebra de linha
@@ -196,7 +198,7 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
 
         // se tiver letra depois de número
         if (isalpha(c)) {
-            ERRO(linha, "Identificador ou número mal formado.");
+            ERRO(linha, "Identificador ou número mal formado.", lista_erros);
             while (isalpha(c) || isdigit(c)) {
                 PROXIMO(arq, c, linha);
             }
@@ -225,7 +227,7 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
         PROXIMO(arq, c, linha);
     // caractere inválido
     } else {
-        ERRO(linha, "Símbolo especial desconhecido '" + string(1, c) + "'");
+        ERRO(linha, "Símbolo especial desconhecido '" + string(1, c) + "'", lista_erros);
         PROXIMO(arq, c, linha);
         return;
     }
@@ -246,7 +248,7 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
 }
 
 int main() {
-    string nomeArq = "Trab1_Compiladores.txt";
+    string nomeArq = "Trab1_erro.txt";
 
     ifstream arq(nomeArq);
 
@@ -260,13 +262,26 @@ int main() {
     vector<Simbolo> tabela_simb;
     int contador_id = -1;
     bool nova_linha = true;
+    vector<string> lista_erros;
     PROXIMO(arq, c, linha);
     
     while (c != EOF) {
-        analisador_lexico(arq, c, linha, tabela_simb, contador_id, nova_linha);
+        analisador_lexico(arq, c, linha, tabela_simb, contador_id, nova_linha, lista_erros);
     }
 
     arq.close();
+
+    cout << "\n\n";
+
+    if (lista_erros.empty()) {
+        cout << "\tNenhum erro para ser exibido.\n";
+    } else {
+        cout << "Erros: " << lista_erros.size() << " encontrados\n";
+        int lista_len = lista_erros.size();
+        for (int i = 0; i < lista_len; i++) {
+            cout << lista_erros[i] << "\n";
+        }
+    }
 
     return 0;
 }
