@@ -170,7 +170,7 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
             nova_linha = true;
         } else if (c != '\r') {
             if (nova_linha) {
-                if (linha < 10) {
+                if (linha < 10) { // apenas para colocar um espaço antes do número da linha se for de 1 a 9
                     cout << " ";
                 }
                 cout << linha << "\t";
@@ -236,7 +236,7 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
         Token token = CODIGO(atomo, tabela, contador_id); // manda pro dicionário
         string nome_tipo = obter_nome_tipo(token.tipo);
 
-        if (nova_linha) {
+        if (nova_linha) { 
             if (linha < 10) {
                 cout << " ";
             }
@@ -262,7 +262,7 @@ int main() {
     int linha = 1;
     vector<Simbolo> tabela_simb;
     int contador_id = -1;
-    bool nova_linha = true;
+    bool nova_linha = true; // variavel para saber se mudou de linha para printar o número da linha
     vector<string> lista_erros;
     PROXIMO(arq, c, linha);
     
