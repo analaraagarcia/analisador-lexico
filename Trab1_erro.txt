@@ -6,34 +6,3 @@ begin
     @normal := 20;
 end.
 
-// palavra reservada
-// if (atomo == "PROGRAM") { t.tipo = TOK_PCHAVE; t.valor = PC_PROGRAM; return t; }
-// if (atomo == "VAR") { t.tipo = TOK_PCHAVE; t.valor = PC_VAR; return t; }
-// if (atomo == "PROCEDURE") { t.tipo = TOK_PCHAVE; t.valor = PC_PROCEDURE; return t; }
-// if (atomo == "BEGIN") { t.tipo = TOK_PCHAVE; t.valor = PC_BEGIN; return t; }
-// if (atomo == "END") { t.tipo = TOK_PCHAVE; t.valor = PC_END; return t; }
-// if (atomo == "IF") { t.tipo = TOK_PCHAVE; t.valor = PC_IF; return t; }
-// if (atomo == "THEN") { t.tipo = TOK_PCHAVE; t.valor = PC_THEN; return t; }
-// if (atomo == "ELSE") { t.tipo = TOK_PCHAVE; t.valor = PC_ELSE; return t; }
-// if (atomo == "WHILE") { t.tipo = TOK_PCHAVE; t.valor = PC_WHILE; return t; }
-// if (atomo == "DO") { t.tipo = TOK_PCHAVE; t.valor = PC_DO; return t; }
-// if (atomo == "INTEGER") { t.tipo = TOK_PCHAVE; t.valor = PC_INTEGER; return t; }
-// if (atomo == "DIV") { t.tipo = TOK_PCHAVE; t.valor = PC_DIV; return t; }
-// if (atomo == "READ") { t.tipo = TOK_PCHAVE; t.valor = PC_READ; return t; }
-// if (atomo == "WRITE") { t.tipo = TOK_PCHAVE; t.valor = PC_WRITE; return t; }
-
-// // operadores
-// if (atomo == "+") { t.tipo = TOK_OP; t.valor = SOMA; return t; }
-// if (atomo == "-") { t.tipo = TOK_OP; t.valor = SUB; return t; }
-// if (atomo == "*") { t.tipo = TOK_OP; t.valor = MULT; return t; }
-// if (atomo == "=") { t.tipo = TOK_OP; t.valor = IGUAL; return t; }
-// if (atomo == "<=") { t.tipo = TOK_OP; t.valor = MENORIG; return t; }
-// if (atomo == ":=") { t.tipo = TOK_OP; t.valor = ATRIB; return t; }
-
-// // pontuação
-// if (atomo == "(") { t.tipo = TOK_PONT; t.valor = PARESQ; return t; }
-// if (atomo == ")") { t.tipo = TOK_PONT; t.valor = PARDIR; return t; }
-// if (atomo == ",") { t.tipo = TOK_PONT; t.valor = VIRG; return t; }
-// if (atomo == ";") { t.tipo = TOK_PONT; t.valor = PNTVIRG; return t; }
-// if (atomo == ":") { t.tipo = TOK_PONT; t.valor = DPONT; return t; }
-// if (atomo == ".") { t.tipo = TOK_PONT; t.valor = PONT; return t; }

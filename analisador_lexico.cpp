@@ -250,10 +250,12 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
 
         // se tiver letra depois de número
         if (isalpha(c)) {
-            ERRO(linha, "Identificador ou número mal formado.", lista_erros);
+            // termina de juntar a palavra antes para mostrar no erro
             while (isalpha(c) || isdigit(c)) {
+                atomo += c;
                 PROXIMO(arq, c, linha);
             }
+            ERRO(linha, "Identificador ou número mal formado '" + atomo + "'", lista_erros);
             atomo = "";
         }
     // símbolos compostos
