@@ -8,6 +8,7 @@ Compilador: VSCode
 #include <string>
 #include <cctype>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
@@ -33,6 +34,17 @@ const int PC_INTEGER = 10;
 const int PC_DIV = 11;
 const int PC_READ = 12;
 const int PC_WRITE = 13;
+const int PC_FUNCTION = 14;
+const int PC_REAL = 15;
+const int PC_BOOLEAN = 16;
+const int PC_CHAR = 17;
+const int PC_STRING = 18;
+const int PC_ARRAY = 19;
+const int PC_REPEAT = 20;
+const int PC_UNTIL = 21;
+const int PC_FOR = 22;
+const int PC_TO = 23;
+const int PC_DOWNTO = 24;
 
 // pontuação
 const int PARESQ = 1; // (
@@ -41,6 +53,8 @@ const int VIRG = 3; // ,
 const int PNTVIRG = 4; // ;
 const int DPONT = 5; // :
 const int PONT = 6; // .
+const int COLCHETEE = 7; // [
+const int COLCHETED = 8; // ]
 
 // operadores
 const int SOMA = 1; // +
@@ -49,6 +63,15 @@ const int MULT = 3; // *
 const int IGUAL = 4; // =
 const int MENORIG = 5; // <=
 const int ATRIB = 6; // :=
+const int DIV_REAL = 7; // /
+const int MENOR = 8; // <
+const int MAIOR = 9; // >
+const int MAIORIG = 10; // >=
+const int DIFERENTE = 11; // <>
+const int OP_MOD = 12; // MOD
+const int OP_AND = 13; // AND
+const int OP_OR = 14; // OR
+const int OP_NOT = 15; // NOT
 
 struct Token {
     int tipo;
@@ -74,37 +97,67 @@ void PROXIMO(ifstream& arq, char& c, int& linha) {
 Token CODIGO(string atomo, vector<Simbolo>& tabela, int& contador_id) {
     Token t;
 
-    // palavra reservada
-    if (atomo == "PROGRAM") { t.tipo = TOK_PCHAVE; t.valor = PC_PROGRAM; return t; }
-    if (atomo == "VAR") { t.tipo = TOK_PCHAVE; t.valor = PC_VAR; return t; }
-    if (atomo == "PROCEDURE") { t.tipo = TOK_PCHAVE; t.valor = PC_PROCEDURE; return t; }
-    if (atomo == "BEGIN") { t.tipo = TOK_PCHAVE; t.valor = PC_BEGIN; return t; }
-    if (atomo == "END") { t.tipo = TOK_PCHAVE; t.valor = PC_END; return t; }
-    if (atomo == "IF") { t.tipo = TOK_PCHAVE; t.valor = PC_IF; return t; }
-    if (atomo == "THEN") { t.tipo = TOK_PCHAVE; t.valor = PC_THEN; return t; }
-    if (atomo == "ELSE") { t.tipo = TOK_PCHAVE; t.valor = PC_ELSE; return t; }
-    if (atomo == "WHILE") { t.tipo = TOK_PCHAVE; t.valor = PC_WHILE; return t; }
-    if (atomo == "DO") { t.tipo = TOK_PCHAVE; t.valor = PC_DO; return t; }
-    if (atomo == "INTEGER") { t.tipo = TOK_PCHAVE; t.valor = PC_INTEGER; return t; }
-    if (atomo == "DIV") { t.tipo = TOK_PCHAVE; t.valor = PC_DIV; return t; }
-    if (atomo == "READ") { t.tipo = TOK_PCHAVE; t.valor = PC_READ; return t; }
-    if (atomo == "WRITE") { t.tipo = TOK_PCHAVE; t.valor = PC_WRITE; return t; }
+    static const unordered_map<string, Token> dicionario = {
+        // palavra reservada
+        {"PROGRAM", {TOK_PCHAVE, PC_PROGRAM}},
+        {"VAR", {TOK_PCHAVE, PC_VAR}},
+        {"PROCEDURE", {TOK_PCHAVE, PC_PROCEDURE}},
+        {"BEGIN", {TOK_PCHAVE, PC_BEGIN}},
+        {"END", {TOK_PCHAVE, PC_END}},
+        {"IF", {TOK_PCHAVE, PC_IF}},
+        {"THEN", {TOK_PCHAVE, PC_THEN}},
+        {"ELSE", {TOK_PCHAVE, PC_ELSE}},
+        {"WHILE", {TOK_PCHAVE, PC_WHILE}},
+        {"DO", {TOK_PCHAVE, PC_DO}},
+        {"INTEGER", {TOK_PCHAVE, PC_INTEGER}},
+        {"DIV", {TOK_PCHAVE, PC_DIV}},
+        {"READ", {TOK_PCHAVE, PC_READ}},
+        {"WRITE", {TOK_PCHAVE, PC_WRITE}},
+        {"FUNCTION", {TOK_PCHAVE, PC_FUNCTION}},
+        {"REAL", {TOK_PCHAVE, PC_REAL}},
+        {"BOOLEAN", {TOK_PCHAVE, PC_BOOLEAN}},
+        {"CHAR", {TOK_PCHAVE, PC_CHAR}},
+        {"STRING", {TOK_PCHAVE, PC_STRING}},
+        {"ARRAY", {TOK_PCHAVE, PC_ARRAY}},
+        {"REPEAT", {TOK_PCHAVE, PC_REPEAT}},
+        {"UNTIL", {TOK_PCHAVE, PC_UNTIL}},
+        {"FOR", {TOK_PCHAVE, PC_FOR}},
+        {"TO", {TOK_PCHAVE, PC_TO}},
+        {"DOWNTO", {TOK_PCHAVE, PC_DOWNTO}},
 
-    // operadores
-    if (atomo == "+") { t.tipo = TOK_OP; t.valor = SOMA; return t; }
-    if (atomo == "-") { t.tipo = TOK_OP; t.valor = SUB; return t; }
-    if (atomo == "*") { t.tipo = TOK_OP; t.valor = MULT; return t; }
-    if (atomo == "=") { t.tipo = TOK_OP; t.valor = IGUAL; return t; }
-    if (atomo == "<=") { t.tipo = TOK_OP; t.valor = MENORIG; return t; }
-    if (atomo == ":=") { t.tipo = TOK_OP; t.valor = ATRIB; return t; }
+        // operadores
+        {"+", {TOK_OP, SOMA}},
+        {"-", {TOK_OP, SUB}},
+        {"*", {TOK_OP, MULT}},
+        {"=", {TOK_OP, IGUAL}},
+        {"<=", {TOK_OP, MENORIG}},
+        {":=", {TOK_OP, ATRIB}},
+        {"/", {TOK_OP, DIV_REAL}},
+        {"<", {TOK_OP, MENOR}},
+        {">", {TOK_OP, MAIOR}},
+        {">=", {TOK_OP, MAIORIG}},
+        {"<>", {TOK_OP, DIFERENTE}},
+        {"MOD", {TOK_OP, OP_MOD}},
+        {"AND", {TOK_OP, OP_AND}},
+        {"OR", {TOK_OP, OP_OR}},
+        {"NOT", {TOK_OP, OP_NOT}},
 
-    // pontuação
-    if (atomo == "(") { t.tipo = TOK_PONT; t.valor = PARESQ; return t; }
-    if (atomo == ")") { t.tipo = TOK_PONT; t.valor = PARDIR; return t; }
-    if (atomo == ",") { t.tipo = TOK_PONT; t.valor = VIRG; return t; }
-    if (atomo == ";") { t.tipo = TOK_PONT; t.valor = PNTVIRG; return t; }
-    if (atomo == ":") { t.tipo = TOK_PONT; t.valor = DPONT; return t; }
-    if (atomo == ".") { t.tipo = TOK_PONT; t.valor = PONT; return t; }
+        // pontuação
+        {"(", {TOK_PONT, PARESQ}},
+        {")", {TOK_PONT, PARDIR}},
+        {",", {TOK_PONT, VIRG}},
+        {";", {TOK_PONT, PNTVIRG}},
+        {":", {TOK_PONT, DPONT}},
+        {".", {TOK_PONT, PONT}},
+        {"[", {TOK_PONT, COLCHETEE}},
+        {"]", {TOK_PONT, COLCHETED}}
+    };
+
+    // busca no dicionario
+    auto it = dicionario.find(atomo);
+    if (it != dicionario.end()) {
+        return it->second;
+    }
 
     // numeros inteiros
     if (isdigit(atomo[0])) {
@@ -134,7 +187,6 @@ Token CODIGO(string atomo, vector<Simbolo>& tabela, int& contador_id) {
     contador_id--;
 
     return t;
-
 }
 
 void ERRO(int linha, string mensagem, vector<string>& lista_erros) {
