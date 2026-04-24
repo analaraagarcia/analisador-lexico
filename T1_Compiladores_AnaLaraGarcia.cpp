@@ -275,8 +275,17 @@ void analisador_lexico(ifstream& arq, char& c, int& linha, vector<Simbolo>& tabe
             atomo += c;
             PROXIMO(arq, c, linha);
         }
+    // maior, maior igual
+    } else if (c == '>') {
+        atomo += c;
+        PROXIMO(arq, c, linha);
+        if (c == '=') {
+            atomo += c;
+            PROXIMO(arq, c, linha);
+        }
+
     // símbolos simples
-    } else if (c == ';' || c == ',' || c == '.' || c == '+' || c == '-' || c == '*' || c == '=' || c == '(' || c == ')') {
+    } else if (c == ';' || c == ',' || c == '.' || c == '+' || c == '-' || c == '*' || c == '=' || c == '(' || c == ')'|| c == '[' || c == ']' || c == '/') {
         atomo += c;
         PROXIMO(arq, c, linha);
     // caractere inválido
